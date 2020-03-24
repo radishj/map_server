@@ -11,7 +11,8 @@ var login = {
     password : 'asdfaf',
 };
 //example use
-//var data=postURL("http://localhost:3060/tasti",login);
+//var serverURL = 'https://localhost:3060';
+var serverURL = 'https://mediavictoria.com:3060';
 var tasti = {};
 //tasti = tasti.merchants;
 //console.log(JSON.stringify(tasti,null,"   "));
@@ -234,7 +235,7 @@ $(function() {
                 selectedOrders.push(marker.index);
             });
             data.selectOrders=selectedOrders;
-            var res=postURL("http://localhost:3060/tasti-request",data);
+            var res=postURL(serverURL+"/tasti-request",data);
             info = JSON.parse(res);
             if(info.status)
             {
@@ -338,7 +339,7 @@ $(function() {
         }
         $("#user_name").text("Username: ");
         console.log("usr22:"+JSON.stringify(user));
-        var res=postURL("http://localhost:3060/tasti-login",user);
+        var res=postURL(serverURL+"/tasti-login",user);
         if(res=="failed"){
             alert('Login failed!');
             return;
