@@ -11,7 +11,9 @@ app.use(express.static(__dirname));
 app.get("/director", function(req, res) {
     res.sendFile(__dirname + "/director.html");
 });
-
+app.get("/test", function(req, res) {
+    res.sendFile(__dirname + "/test.html");
+});
 function getUserRoom(room_id) {
     var user = [];
     for (var key in io.sockets.adapter.rooms[room_id]) {
