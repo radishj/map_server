@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+	<style>
+	.gm-style-iw{
+		min-width:100px;
+		min-height:20px;
+		text-align:center;
+	}
+	.gm-style canvas{
+		display:block !important;
+	}
+	.gm-style-iw + div{
+		display:none !important;
+	}
+	.gmnoprint{
+		right:90% !important;
+	}
+	</style>
+</head>
+<body>
+<article id="wrapper" class="row">
+	
+	<div id="chat">
+		<div id="login_panel"  style="display:block">
+			<div class="room_chat">
+				<div class="item-control">
+					<label id="label">Phone: </label>
+					<input id="phone" type="text" value=""></input>
+				</div>
+				<div class="item-control">
+					<label id="label">password: </label>
+					<input id="password" type="password" value=""></input>
+				</div>
+				<button id="button_login">Login</button>
+			</div>
+		</div>
+		<div id="user_panel"  style="display:none">
+			<div class="room_chat">
+				<div class="item-control">
+					<label id="user_name">Username: </label>
+				</div>
+				<div class="item-control">
+					<button id="button_logout">Logout</button>
+				</div>
+			</div>
+		</div>
+		<div id="command_panel"  style="display:none">
+			<div class="room_chat">
+				<div class="item-control">
+					<label>Command: </label>
+					</br>
+					<label for="command" style="margin-right:30px;">&nbsp;&nbsp;&nbsp;  Add</label><input type="radio" id="Add" name="command" checked>
+					</br>
+					<label for="command">&nbsp;&nbsp;&nbsp;  Remove</label><input type="radio" id="Remove" name="command">
+					</br>
+					<label for="command">&nbsp;&nbsp;&nbsp;  Txt:</label><input type="text" id="command_text" value="">
+					</br>
+					<label for="command">&nbsp;&nbsp;&nbsp;  Area Size:</label>
+					</br>
+						<label for="command">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  None</label><input type="radio" id="area_none" name="area" value="None">
+					</br>
+						<label for="command">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Small</label><input type="radio" id="area_small" name="area" value="Small" checked>
+					</br>
+						<label for="command">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Large</label><input type="radio" id="area_large" name="area" value="Large">
+					
+				</div>
+				<div class="item-control">
+					<input id="request" type="button" value="Delivery Request">
+				</div>
+				<div class="item-control">
+					<label for="command">My Icon:</label><input id="hide_my_icon" type="button" value="Hide">
+				</div>
+			</div>
+		</div>
+		<div id="text_input" style="display:none">
+			<div class="room_chat">
+				<div id="message"><!--Nội dung chat--></div>
+				<input type="text" id="chat_message" value="">
+				<button id="send_message">Send</button>
+			</div>
+		</div>
+		<div id="room" style="display:none">
+			<div class="room_chat">
+				<div id="room_message"></div>
+				<input type="text" id="chat_room_message" value="Room Message">
+				<button id="send_room_message">Send</button>
+			</div>
+		</div>
+	</div>
+	<div id="hide-show">Hide</div>
+
+	<div id="invite_form" style="display:none">
+		<div class="message_content">Do you want to room chat ?</div>
+		<div class="button">
+			<button class="no" id="no">No</button>
+			<button class="yes" id="yes">Yes</button>
+		</div>
+	</div>
+	<div id="map"></div>
+</article>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD771wv0bZmSuvvpH8dpBQq1C5kQIKWYag"></script>
+<script type="text/javascript" src="director.js"></script>
+<script type="text/javascript">
+$(function(){
+	var show = 1;
+	var this_right = $("#chat").width();
+	$("#hide-show").css({right:this_right+"px"});
+	$("#hide-show").click(function(){
+		//Hide
+		if (show == 1){
+			show = 0;	
+			$(this).text("Show");
+			$("#chat").hide();
+			$(this).css({right:"0"});
+		}else{
+			show = 1;
+			$(this).text("Hide");
+			$("#chat").show();
+			$(this).css({right:this_right});
+		}
+	});
+});
+</script>
+<script>
+</script>
+</body>
+</html>
