@@ -8,7 +8,6 @@ var options = {
 var express = require("express"),
     app = require("express")(),
     http = require("http").Server(options,app),
-    fs = require("fs"),
     axios = require('axios');
 http.listen(6600, function() {
     console.log("Connected to :6600");
