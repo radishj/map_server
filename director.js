@@ -487,52 +487,6 @@ $(function() {
     });
 });
 
-function travel(from, to) {
-    for (var i = 0; i < Math.max(allFlightPath.length, allMarkerStress.length); i++) {
-        if (typeof(allFlightPath[i]) !== undefined) {
-            allFlightPath[i].setMap(null);
-        }
-        if (typeof(allMarkerStress[i]) !== undefined) {
-            allMarkerStress[i].setMap(null);
-        }
-    }
-    allFlightPath = [];
-    allMarkerStress = [];
-    for (var i = 0; i < from.length; i++) {
-        var request = {
-            origin: new google.maps.LatLng(from[i][0], from[i][1]),
-            destination: new google.maps.LatLng(to[0], to[1]), //lat, lng
-            travelMode: google.maps.TravelMode["WALKING"]
-        };
-        directionsService.route(request, function(response, status) {
-            var flightPath = '',
-                marker_stress = '';
-            if (status == google.maps.DirectionsStatus.OK) {
-                data = response.routes[0].overview_path;
-                color = "#ff0000";
-                opacity = 1;
-
-                flightPath = new google.maps.Polyline({
-                    path: data,
-                    geodesic: true,
-                    strokeColor: color,
-                    strokeOpacity: opacity,
-                    strokeWeight: 2,
-                    map: map
-                });
-                flightPath.setMap(map);
-                marker_stress = new google.maps.Marker({
-                    position: new google.maps.LatLng(data[data.length - 1].k, data[data.length - 1].B),
-                    icon: "http://icons.iconarchive.com/icons/fatcow/farm-fresh/32/hand-point-270-icon.png"
-                });
-                marker_stress.setMap(map);
-                allFlightPath.push(flightPath);
-                allMarkerStress.push(marker_stress);
-            }
-        });
-    }
-}
-
 function postURL(url,body){
     return $.ajax({
         type: "POST",
