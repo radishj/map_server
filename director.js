@@ -11,8 +11,8 @@ var login = {
     password : 'asdfaf',
 };
 //example use
-//var serverURL = 'https://localhost:3060';
-var serverURL = 'http://mediavictoria.com:3060';
+var serverURL = 'http://localhost:3060';
+//var serverURL = 'http://mediavictoria.com:3060';
 var tasti = {};
 //tasti = tasti.merchants;
 //console.log(JSON.stringify(tasti,null,"   "));
@@ -112,24 +112,35 @@ function addDeliveryMarker(addrTree, addrKey, map, iconStr) {
     marker.addListener('click', function() {
         var markerPos = marker.getPosition();
         Object.values(orderMarkers).forEach(om => {
-            if(om.getIcon()==waitIcon && om!=marker)
+            var addMode = document.getElementById("Add").checked;
+            var removeMode =document.getElementById("Remove").checked;
+            if((om.getIcon()==waitIcon && addMode || removeMode) && om!=marker)
             {
                 var omPos = om.getPosition();
                 var dist = Math.sqrt(Math.pow((markerPos.lat()-omPos.lat()),2)+Math.pow((markerPos.lng()-omPos.lng()),2));
-                if(dist<areaDiff)
-                {
-                    selectedMarkers.push(om);
-                    var iconStr = 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+selectedMarkers.length.toString()+'|'+color.green+'|ffffff';
-                    om.setIcon(iconStr);
+                if(dist<areaDiff){
+                    //console.log('update2:'+document.getElementById("Add").checked);
+                    //console.log('update3:'+document.getElementById("Remove").checked);
+                    if (addMode) {
+                        selectedMarkers.push(om);
+                        var iconStr = 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+selectedMarkers.length.toString()+'|'+color.green+'|ffffff';
+                        om.setIcon(iconStr);//console.log(iconStr);
+                    }
+                    else if(removeMode) {//console.log('update4:'+om.index);
+                        updateMarker(om.index, "Unselect");//console.log('update5:'+om.index);
+                    }
                 }
             }
         });
-        if(marker.getIcon()==waitIcon){
-            selectedMarkers.push(marker);
-            var iconStr = 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+selectedMarkers.length.toString()+'|'+color.green+'|ffffff';
-            marker.setIcon(iconStr);
-            //alert(addrTree[addrKey].name+'\n'+addressStr(addrTree[addrKey]));
-            //marker.setMap(null);
+        if (document.getElementById("Add").checked && marker.getIcon()==waitIcon) {
+                selectedMarkers.push(marker);
+                var iconStr = 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+selectedMarkers.length.toString()+'|'+color.green+'|ffffff';
+                marker.setIcon(iconStr);
+                //alert(addrTree[addrKey].name+'\n'+addressStr(addrTree[addrKey]));
+                //marker.setMap(null);
+        }
+        else if(document.getElementById("Remove").checked && marker.getIcon()!=waitIcon) {
+            updateMarker(marker.index, "Unselect");
         }
     });
 }
@@ -153,16 +164,21 @@ function convertLoc(loc)
 {
     return {lat: Number(loc.lat), lng: Number(loc.lng)};
 }
-function removeMarker(orderID)
+function updateMarker(orderID, command)
 {
     var pos = -1;
+    var start=false;
     for(var i=0; i<selectedMarkers.length; i++){
-        var start=false;
         if(start){
-            var iconStr = 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+(selectedMarkers.length-1).toString()+'|'+color.green+'|ffffff';
+            var iconStr = 'https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld='+i.toString()+'|'+color.green+'|ffffff';
             selectedMarkers[i].setIcon(iconStr);
         }else if(selectedMarkers[i].index==orderID){
-            selectedMarkers[i].setMap(null);
+            if(command=="Remove"){
+                selectedMarkers[i].setMap(null);
+            }
+            else if(command=="Unselect"){
+                selectedMarkers[i].setIcon(waitIcon);
+            }
             start=true;
             pos=i;
         }
@@ -170,14 +186,20 @@ function removeMarker(orderID)
     if(pos>=0){
         selectedMarkers.splice(pos, 1);
     }
-    else if(orderMarkers[orderID])
-        orderMarkers[orderID].setMap(null);
-    delete orderMarkers[orderID];
+    if(orderMarkers[orderID]){
+        if(command=="Remove"){
+            orderMarkers[orderID].setMap(null);
+            delete orderMarkers[orderID];
+        }
+        else if(command=="Unselect"){
+            orderMarkers[orderID].setIcon(waitIcon);
+        }
+    }
 }
 function removeAllMarkers()
 {
     Object.keys(orderMarkers).forEach(id => {
-        console.log('id:'+id);
+        //console.log('id:'+id);
         orderMarkers[id].setMap(null);
         delete orderMarkers[id];
     });
@@ -223,6 +245,29 @@ $(function() {
                 marker.setVisible(false);
             });
             areaDiff = diffAreaLarge;
+        }
+    });
+
+    $("#reboot").click(async function() {
+        var togo = confirm('You reboot server will erase all data, continune?');
+        if (togo == true) {
+            var data={"token":user.token};
+            var res=postURL(serverURL+"/tasti-reboot",data);
+            info = JSON.parse(res);
+            if(info.status)
+            {
+                if(info.status=='success'){
+                    $("#login_panel").css({
+                        display: "block"
+                    });
+                    $("#user_panel").css({
+                        display: "none"
+                    })
+                    $("#command_panel").css({
+                        display: "none"
+                    })
+                }
+            }
         }
     });
 
@@ -285,7 +330,7 @@ $(function() {
                     Object.keys(orderMarkers).forEach(id => {
                         if(!orderMarkers[id].valid){
                             count++;
-                            removeMarker(id);
+                            updateMarker(id, "Remove");
                         }
                     });
                     alert(count+' orders are not available anymore. They got removed from your map!');
@@ -344,6 +389,7 @@ $(function() {
             alert('Login failed!');
             return;
         }
+        console.log("111111:"+JSON.stringify(res));
         tasti = JSON.parse(res);
         if(tasti.user){
             user = tasti.user;console.log('u1:'+JSON.stringify(tasti.user));
