@@ -18,9 +18,9 @@ var express = require("express"),
     http = require("http").Server(app),
     fs = require("fs"),
     axios = require('axios');
-http.listen(6600, function() {
-    console.log("Connected to :6600");
-});
+http.listen(80);
+console.log("Listening...");
+//http.listen(6600, function() {console.log("Connected to :6600")});
 
 app.use(express.static(__dirname));
 app.get("/director", function(req, res) {
