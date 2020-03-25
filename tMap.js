@@ -15,16 +15,14 @@ http.listen(6600, function() {
 /* old*/
 var express = require("express"),
     app = require("express")();
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
     next();
     });
-var http = require("http").Server(app),
-    fs = require("fs"),
+var fs = require("fs"),
     axios = require('axios');
-http.listen(process.env.PORT || 6600, function() {console.log("Connected to :"+process.env.PORT)});
-console.log("Listening...");
+server = app.listen(process.env.PORT || 6600);
+console.log("Listening on port %s...", server.address().port);
 //http.listen(6600, function() {console.log("Connected to :6600")});
 
 app.use(express.static(__dirname));
