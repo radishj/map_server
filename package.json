@@ -1,0 +1,25 @@
+{
+  "name": "map_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tMap.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "geocoder": "^0.2.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radishj/map_server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radishj/map_server/issues"
+  },
+  "homepage": "https://github.com/radishj/map_server#readme"
+}

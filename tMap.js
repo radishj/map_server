@@ -1,4 +1,4 @@
-const fs = require('fs');
+/*const fs = require('fs');
 var options = {
     key: fs.readFileSync('/etc/apache2/conf.d/ssl.crt/server.key'),
     cert: fs.readFileSync('/etc/apache2/conf.d/ssl.crt/server.crt'),
@@ -12,7 +12,7 @@ var express = require("express"),
 http.listen(6600, function() {
     console.log("Connected to :6600");
 });
-/* old
+/* old*/
 var express = require("express"),
     app = require("express")(),
     http = require("http").Server(app),
@@ -21,7 +21,7 @@ var express = require("express"),
 http.listen(6600, function() {
     console.log("Connected to :6600");
 });
-*/
+
 app.use(express.static(__dirname));
 app.get("/director", function(req, res) {
     res.sendFile(__dirname + "/director.html");

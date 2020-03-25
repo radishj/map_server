@@ -12,7 +12,7 @@ var login = {
 };
 //example use
 //var serverURL = 'https://localhost:3060';
-var serverURL = 'https://mediavictoria.com:3060';
+var serverURL = 'http://mediavictoria.com:3060';
 var tasti = {};
 //tasti = tasti.merchants;
 //console.log(JSON.stringify(tasti,null,"   "));
