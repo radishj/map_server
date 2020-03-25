@@ -1,3 +1,4 @@
+const fs = require('fs');
 var options = {
     key: fs.readFileSync('/etc/apache2/conf.d/ssl.crt/server.key'),
     cert: fs.readFileSync('/etc/apache2/conf.d/ssl.crt/server.crt'),
