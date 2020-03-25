@@ -11,7 +11,8 @@ var login = {
     password : 'asdfaf',
 };
 //example use
-var serverURL = 'http://localhost:3060';
+//var serverURL = 'http://localhost:3060';
+var serverURL = 'https://map-data-server.herokuapp.com/';
 //var serverURL = 'http://mediavictoria.com:3060';
 var tasti = {};
 //tasti = tasti.merchants;
