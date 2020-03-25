@@ -14,8 +14,13 @@ http.listen(6600, function() {
 });
 /* old*/
 var express = require("express"),
-    app = require("express")(),
-    http = require("http").Server(app),
+    app = require("express")();
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+    });
+var http = require("http").Server(app),
     fs = require("fs"),
     axios = require('axios');
 http.listen(process.env.PORT || 6600, function() {console.log("Connected to :"+process.env.PORT)});
