@@ -18,7 +18,7 @@ var express = require("express"),
     http = require("http").Server(app),
     fs = require("fs"),
     axios = require('axios');
-http.listen();
+http.listen(process.env.PORT || 6600, function() {console.log("Connected to :6600")});
 console.log("Listening...");
 //http.listen(6600, function() {console.log("Connected to :6600")});
 
