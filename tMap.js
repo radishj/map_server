@@ -13,12 +13,10 @@ http.listen(6600, function() {
     console.log("Connected to :6600");
 });
 /* old*/
-var express = require("express"),
-    app = require("express")();
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-    });
+var cors = require('cors');
+var express = require("express");
+var app = express();
+app.use(cors());
 var fs = require("fs"),
     axios = require('axios');
 server = app.listen(process.env.PORT || 6600);

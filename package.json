@@ -5,12 +5,14 @@
   "main": "tMap.js",
   "dependencies": {
     "axios": "^0.19.2",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "geocoder": "^0.2.3"
+    "geocoder": "^0.2.3",
+    "helmet": "^3.22.0"
   },
   "devDependencies": {},
   "scripts": {
-    "start":"node tMap.js",
+    "start": "node tMap.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
