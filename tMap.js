@@ -23,8 +23,8 @@ var app = express();
 app.use(helmet());
 app.use(cors());
 var axios = require('axios');
-server = app.listen(process.env.PORT || 6600);
-console.log("Listening on port %s...", server.address().port);
+server = app.listen(process.env.PORT || 7700);
+//console.log("Listening on port %s...", server.address().port);
 
 https.createServer(options, app).listen(8800);
 
