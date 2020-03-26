@@ -1,18 +1,4 @@
-/*const fs = require('fs');
-var options = {
-    key: fs.readFileSync('/etc/apache2/conf.d/ssl.crt/server.key'),
-    cert: fs.readFileSync('/etc/apache2/conf.d/ssl.crt/server.crt'),
-    requestCert: false
-};
-
-var express = require("express"),
-    app = require("express")(),
-    http = require("http").Server(options,app),
-    axios = require('axios');
-http.listen(6600, function() {
-    console.log("Connected to :6600");
-});
-/* old*/
+/* old
 var cors = require('cors');
 var express = require("express");
 var app = express();
@@ -21,7 +7,26 @@ var fs = require("fs"),
     axios = require('axios');
 server = app.listen(process.env.PORT || 6600);
 console.log("Listening on port %s...", server.address().port);
-//http.listen(6600, function() {console.log("Connected to :6600")});
+*/
+
+const https = require("https");
+var fs = require("fs");
+const options = {
+    key: fs.readFileSync("/etc/letsencrypt/live/www.mediavictoria.com/privkey.pem"),
+    cert: fs.readFileSync("/etc/letsencrypt/live/www.mediavictoria.com/fullchain.pem"),
+    dhparam: fs.readFileSync("/etc/letsencrypt/live/www.mediavictoria.com/dh-strong.pem")
+  };
+var cors = require('cors');
+var express = require("express");
+var app = express();
+app.use(helmet());
+app.use(cors());
+var axios = require('axios');
+server = app.listen(process.env.PORT || 6600);
+console.log("Listening on port %s...", server.address().port);
+
+https.createServer(options, app).listen(8800);
+
 
 app.use(express.static(__dirname));
 app.get("/director", function(req, res) {
