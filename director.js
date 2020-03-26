@@ -12,8 +12,8 @@ var login = {
 };
 //example use
 //var serverURL = 'http://localhost:3060';
-var serverURL = 'https://map-data-server.herokuapp.com/';
-//var serverURL = 'http://mediavictoria.com:3060';
+//var serverURL = 'https://map-data-server.herokuapp.com/';
+var serverURL = 'https://mediavictoria.com:3300';
 var tasti = {};
 //tasti = tasti.merchants;
 //console.log(JSON.stringify(tasti,null,"   "));
