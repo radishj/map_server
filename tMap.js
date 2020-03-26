@@ -10,7 +10,8 @@ console.log("Listening on port %s...", server.address().port);
 */
 
 const https = require("https");
-var fs = require("fs");
+const fs = require("fs");
+const helmet = require("helmet");
 const options = {
     key: fs.readFileSync("/etc/letsencrypt/live/www.mediavictoria.com/privkey.pem"),
     cert: fs.readFileSync("/etc/letsencrypt/live/www.mediavictoria.com/fullchain.pem"),
