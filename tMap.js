@@ -8,7 +8,7 @@ var fs = require("fs"),
 server = app.listen(process.env.PORT || 6600);
 console.log("Listening on port %s...", server.address().port);
 */
-
+//*
 const https = require("https");
 const fs = require("fs");
 const helmet = require("helmet");
@@ -25,9 +25,9 @@ app.use(cors());
 var axios = require('axios');
 server = app.listen(process.env.PORT || 7700);
 //console.log("Listening on port %s...", server.address().port);
-
 https.createServer(options, app).listen(8800);
 console.log("Listening on port 8800");
+//*/
 
 app.use(express.static(__dirname));
 app.get("/director", function(req, res) {

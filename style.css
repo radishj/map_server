@@ -72,7 +72,7 @@ label, input, button{
     height: 80%;
     position: absolute;
     right: 0;
-    top: 60px;
+    top: 110px;
     width: 200px;
     z-index: 4;
 }

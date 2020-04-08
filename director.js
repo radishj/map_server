@@ -367,7 +367,7 @@ $(function() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
         }
-    },
+    });
     $("#button_login").click(async function() {
         // Try HTML5 geolocation.
         loc = await requestPosition();
