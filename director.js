@@ -342,6 +342,32 @@ $(function() {
             }
         }
     });
+    var currentLoc;
+    $("#my_loc").click(async function() {
+    
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var currentLoc = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(currentLoc);
+            infoWindow.setContent('I\'m here');
+            infoWindow.open(map);
+            map.setCenter(currentLoc);
+            //map.setZoom(20);
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+        } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+        }
+    },
     $("#button_login").click(async function() {
         // Try HTML5 geolocation.
         loc = await requestPosition();
