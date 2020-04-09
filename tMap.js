@@ -7,7 +7,7 @@ var fs = require("fs"),
     axios = require('axios');
 server = app.listen(process.env.PORT || 6600);
 console.log("Listening on port %s...", server.address().port);
-*/
+//*/
 //*
 const https = require("https");
 const fs = require("fs");
